@@ -10,31 +10,13 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from 'components/listItems';
-import Chart from 'components/Chart';
-import Deposits from 'components/Deposits';
-import Orders from 'components/Orders';
-
-function MadeWithLove() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
-    </Typography>
-  );
-}
+import { MainMenuItems, SecondaryMenuItems } from 'components/Menus';
+import Footer from 'layouts/Footer';
 
 const drawerWidth = 240;
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -159,20 +141,26 @@ const Main = (props) => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <MainMenuItems />
+        </List>
         <Divider />
-        <List>{secondaryListItems}</List>
+        <List>
+          <SecondaryMenuItems />
+        </List>
       </Drawer>
 
-      {/* Content */}
+      {/* Main */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
+
+        {/* Content */}
         <Container maxWidth="lg" className={classes.container}>
           {children}
         </Container>
 
         {/* Footer */}
-        <MadeWithLove />
+        <Footer />
       </main>
     </div>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
-import Title from './Title';
+import {
+  LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer,
+} from 'recharts/lib';
+import Title from 'components/Title';
 
 // Generate Sales Data
 function createData(time, amount) {
