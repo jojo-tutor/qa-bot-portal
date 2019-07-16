@@ -14,7 +14,7 @@
     "recharts": "^1.6.2"
   },
   "scripts": {
-    "dev": "next ./src",
+    "dev": "next ./src -p 4000",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ./src"
