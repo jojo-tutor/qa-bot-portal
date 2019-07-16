@@ -1,21 +1,15 @@
-# Next.js example
+# A question & answer web app.
 
-## How to use
+## Built using React
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+Download the example [or clone the repo](https://github.com/jojo-tutor/qa-bot-portal.git):
 
 ```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs
-cd nextjs
+git clone https://github.com/jojo-tutor/qa-bot-portal.git && cd qa-bot-portal
 ```
 
 Install it and run:
 
 ```sh
-npm install
-npm run dev
+yarn && yarn dev
 ```
-
-## The idea behind the example
-
-[Next.js](https://github.com/zeit/next.js) is a framework for server-rendered React apps.
