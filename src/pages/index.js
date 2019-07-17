@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-
 import Main from 'layouts/Main';
 import Paper from 'components/Paper';
 import Chart from 'components/Chart';
@@ -8,8 +7,7 @@ import Deposits from 'components/Deposits';
 import Orders from 'components/Orders';
 
 const Dashboard = (props) => {
-  console.log('props: ', props);
-
+  console.log('@props', props);
   return (
     <Main title="Dashboard">
       <Grid container spacing={3}>
