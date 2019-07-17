@@ -5,9 +5,19 @@ import Paper from 'components/Paper';
 import Chart from 'components/Chart';
 import Deposits from 'components/Deposits';
 import Orders from 'components/Orders';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment } from 'redux/actions';
 
 const Dashboard = (props) => {
+  const count = useSelector(state => state.count);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(increment());
+  }, [true]);
+
   console.log('@props', props);
+  console.log('@count', count);
   return (
     <Main title="Dashboard">
       <Grid container spacing={3}>
