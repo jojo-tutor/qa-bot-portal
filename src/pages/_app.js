@@ -9,7 +9,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'theme';
 import createStore from 'redux/store';
-import configureStore from 'configureStore';
+import configureStore from 'utils/configureStore';
 
 class MyApp extends App {
   componentDidMount() {
@@ -22,6 +22,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps, store } = this.props;
+    console.log('pageProps: ', pageProps);
 
     return (
       <Container>

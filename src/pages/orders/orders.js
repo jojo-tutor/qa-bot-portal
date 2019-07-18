@@ -9,11 +9,12 @@ import saga from './saga';
 const key = 'orders';
 
 const Orders = (props) => {
-  const count = useSelector(state => state[key]);
-  console.log('count: ', count);
-
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
+
+  const count = useSelector(state => state);
+
+  console.log('@count: ', count);
 
   return (
     <Main title="Orders">

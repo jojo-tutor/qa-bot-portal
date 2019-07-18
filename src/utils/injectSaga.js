@@ -17,7 +17,7 @@ import getInjectors from './sagaInjectors';
  *
  */
 export default ({ key, saga, mode }) => (WrappedComponent) => {
-  class InjectSaga extends React.Component {
+  class InjectSaga extends React.PureComponent {
     static WrappedComponent = WrappedComponent;
 
     static contextType = ReactReduxContext;

@@ -15,10 +15,11 @@ const key = 'dashboard';
 
 const Dashboard = (props) => {
   const count = useSelector(state => state);
+  console.log('count: ', count);
   const dispatch = useDispatch();
 
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
+  // useInjectReducer({ key, reducer });
+  // useInjectSaga({ key, saga });
 
   React.useEffect(() => {
     // dispatch(loadData());
