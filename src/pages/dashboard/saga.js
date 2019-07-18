@@ -30,10 +30,7 @@ function* loadDataSaga() {
 }
 
 function* rootSaga() {
-  yield all([
-    call(runClockSaga),
-    takeLatest(actionTypes.LOAD_DATA, loadDataSaga),
-  ]);
+
 }
 
 export default rootSaga;

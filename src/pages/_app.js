@@ -1,6 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import { Provider } from 'react-redux';
+import { compose } from 'redux';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import Head from 'next/head';
@@ -8,6 +9,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'theme';
 import createStore from 'redux/store';
+import configureStore from 'configureStore';
 
 class MyApp extends App {
   componentDidMount() {
@@ -38,4 +40,6 @@ class MyApp extends App {
   }
 }
 
-export default withRedux(createStore)(withReduxSaga(MyApp));
+export default compose(
+  withRedux(configureStore),
+)(MyApp);
