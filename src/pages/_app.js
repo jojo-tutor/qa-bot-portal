@@ -9,9 +9,19 @@ import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'theme';
 import createStore from 'redux/store';
-import configureStore from 'utils/configureStore';
+// import configureStore from 'utils/configureStore';
 
 class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps({ ctx });
+    }
+
+    return { pageProps };
+  }
+
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -22,7 +32,6 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps, store } = this.props;
-    console.log('pageProps: ', pageProps);
 
     return (
       <Container>
@@ -42,5 +51,6 @@ class MyApp extends App {
 }
 
 export default compose(
-  withRedux(configureStore),
+  withRedux(createStore),
+  withReduxSaga,
 )(MyApp);

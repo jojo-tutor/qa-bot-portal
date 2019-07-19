@@ -1,8 +1,8 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import rootReducer, { exampleInitialState } from './reducer';
-import rootSaga from './saga';
+import reducers from 'redux/reducers';
+import sagas from 'redux/sagas';
 
 const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -12,15 +12,19 @@ const bindMiddleware = (middleware) => {
   return applyMiddleware(...middleware);
 };
 
-function configureStore(initialState = exampleInitialState) {
+function createReducer() {
+  return combineReducers(reducers);
+}
+
+function configureStore(initialState = {}) {
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(
-    rootReducer,
+    createReducer(),
     initialState,
     bindMiddleware([sagaMiddleware]),
   );
 
-  store.sagaTask = sagaMiddleware.run(rootSaga);
+  store.sagaTask = sagaMiddleware.run(sagas);
 
   return store;
 }

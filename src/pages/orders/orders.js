@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Main from 'layouts/Main';
-import { useSelector } from 'react-redux';
-import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
-import reducer from './reducer';
-import saga from './saga';
+import { getOrdersGrid } from 'redux/orders/actions';
 
 const key = 'orders';
 
 const Orders = (props) => {
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
+  const dispatch = useDispatch();
+  const value = useSelector(state => state[key]);
 
-  const count = useSelector(state => state);
+  React.useEffect(() => {
+    // dispatch(getOrdersGrid());
+  }, [1]);
 
-  console.log('@count: ', count);
+  console.log(key, value);
 
   return (
     <Main title="Orders">
@@ -23,4 +22,12 @@ const Orders = (props) => {
   );
 };
 
-export default Orders;
+Orders.getInitialProps = async (props) => {
+  const { store, isServer } = props.ctx;
+
+  store.dispatch(getOrdersGrid());
+
+  return { isServer };
+};
+
+export default memo(Orders);

@@ -1,32 +1,20 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Grid from '@material-ui/core/Grid';
+import { useSelector, useDispatch } from 'react-redux';
 import Main from 'layouts/Main';
 import Paper from 'components/Paper';
 import Chart from 'components/Chart';
 import Deposits from 'components/Deposits';
 import Orders from 'components/Orders';
-import { useSelector, useDispatch } from 'react-redux';
-import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
-import reducer from './reducer';
-import saga from './saga';
-
-const key = 'dashboard';
 
 const Dashboard = (props) => {
   const count = useSelector(state => state);
-  console.log('count: ', count);
   const dispatch = useDispatch();
-
-  // useInjectReducer({ key, reducer });
-  // useInjectSaga({ key, saga });
 
   React.useEffect(() => {
     // dispatch(loadData());
   }, [true]);
 
-  console.log('@props', props);
-  console.log('@count', count);
   return (
     <Main title="Dashboard">
       <Grid container spacing={3}>
@@ -55,4 +43,4 @@ const Dashboard = (props) => {
   );
 };
 
-export default Dashboard;
+export default memo(Dashboard);
