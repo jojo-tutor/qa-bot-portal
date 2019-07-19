@@ -9,7 +9,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'theme';
 import createStore from 'redux/store';
-// import configureStore from 'utils/configureStore';
+import GlobalStyles from 'layouts/Global';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -36,11 +36,12 @@ class MyApp extends App {
     return (
       <Container>
         <Head>
-          <title>My page</title>
+          <title>QA Bot Portal</title>
         </Head>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
+          <GlobalStyles />
           <Provider store={store}>
             <Component {...pageProps} />
           </Provider>
