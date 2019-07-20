@@ -20,27 +20,22 @@ const mainMenus = [
     icon: DashboardIcon,
   },
   {
-    id: 'orders',
-    icon: ShoppingCartIcon,
-  },
-  {
-    id: 'customers',
+    id: 'users',
     icon: PeopleIcon,
   },
   {
-    id: 'reports',
+    id: 'companies',
     icon: BarChartIcon,
   },
   {
-    id: 'integrations',
+    id: 'questions',
     icon: LayersIcon,
   },
 ];
 
 const secondaryMenus = [
   {
-    id: 'last-month',
-    label: 'Last month',
+    id: 'settings',
     icon: AssignmentIcon,
   },
   {
@@ -86,7 +81,7 @@ export const MainMenuItems = () => (
 
 export const SecondaryMenuItems = () => (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset>App Settings</ListSubheader>
     <MenuItems items={secondaryMenus} />
   </div>
 );

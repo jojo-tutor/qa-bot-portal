@@ -1,7 +1,7 @@
 import React from 'react';
-import { withStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-const styles = {
+const useStyles = makeStyles(theme => ({
   '@global': {
     '*::-webkit-scrollbar': {
       width: '.5rem',
@@ -14,12 +14,17 @@ const styles = {
     },
     '*::-webkit-scrollbar-thumb': {
       borderRadius: '10px',
-      backgroundColor: '#556cd694',
+      backgroundColor: theme.palette.grey['400'],
       '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,.3)',
     },
   },
+  root: {},
+}));
+
+
+const Global = () => {
+  const classes = useStyles();
+  return <div className={classes.root} />;
 };
 
-const Global = () => <div className="globals" />;
-
-export default withStyles(styles)(Global);
+export default Global;

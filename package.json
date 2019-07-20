@@ -1,11 +1,12 @@
 {
-  "name": "nextjs",
+  "name": "qa-bot-portal",
   "version": "4.0.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "latest",
+    "@zeit/next-css": "^1.0.1",
     "clsx": "latest",
     "dotenv": "^8.0.0",
     "dotenv-webpack": "^1.7.0",
@@ -13,6 +14,7 @@
     "hoist-non-react-statics": "^3.3.0",
     "invariant": "^2.2.4",
     "lodash": "^4.17.14",
+    "namor": "^1.1.2",
     "next": "latest",
     "next-redux-saga": "^4.0.2",
     "next-redux-wrapper": "^3.0.0-alpha.3",
@@ -20,6 +22,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-redux": "^7.1.0",
+    "react-table": "^6.10.0",
     "recharts": "^1.6.2",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5"
