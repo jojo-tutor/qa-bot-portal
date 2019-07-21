@@ -47,18 +47,15 @@ const Users = memo((props) => {
     },
   ];
 
-  const fetchData = (tableState) => {
-    const payload = pick(tableState, [
-      'pageSize', 'page', 'sorted', 'filtered',
-    ]);
-    dispatch(getUsersGrid(payload));
+  const fetchData = (options) => {
+    dispatch(getUsersGrid(options));
   };
 
   const tableProps = {
     columns,
     initialLoad: state.initialLoad,
     data: page.grid.list,
-    pages: page.grid.count,
+    pages: page.grid.pages,
     loading: page.gridFetching,
     onFetchData: fetchData,
   };
@@ -75,11 +72,12 @@ const Users = memo((props) => {
 });
 
 Users.getInitialProps = async (props) => {
-  const { store, isServer, req } = props.ctx;
+  const { store, isServer } = props.ctx;
 
   if (isServer) {
     store.dispatch(getUsersGrid({
-      cookie: req.headers.cookie,
+      page: 0,
+      limit: 20,
     }));
   }
 

@@ -24,11 +24,20 @@ const GridTable = (props) => {
       'loading',
       'manual',
       'pages',
+      'defaultPageSize',
     ], [props]),
   );
   const fetchData = (state) => {
     if (!initialLoad) {
-      onFetchData(state);
+      const options = pick(state, [
+        'pageSize', 'page', 'sorted', 'filtered',
+      ]);
+      console.log('@table options', options);
+      onFetchData({
+        limit: state.pageSize,
+        skip: state.pageSize * state.page,
+        sort: state.sorted,
+      });
     }
   };
 
@@ -38,7 +47,6 @@ const GridTable = (props) => {
         {...tableProps}
         minRows={0}
         onFetchData={fetchData}
-        defaultPageSize={50}
         className={cn('-striped -highlight', classes.root)}
       />
       <br />
@@ -49,6 +57,7 @@ const GridTable = (props) => {
 
 GridTable.defaultProps = {
   manual: true,
+  defaultPageSize: 20,
 };
 
 const Tips = () => (

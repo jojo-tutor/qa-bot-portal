@@ -1,7 +1,10 @@
 import React from 'react';
-import {
-  LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer,
-} from 'recharts/lib';
+import LineChart from 'recharts/lib/chart/LineChart';
+import Line from 'recharts/lib/cartesian/Line';
+import XAxis from 'recharts/lib/cartesian/XAxis';
+import YAxis from 'recharts/lib/cartesian/YAxis';
+import Label from 'recharts/lib/component/Label';
+import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 import Title from 'components/Title';
 
 // Generate Sales Data

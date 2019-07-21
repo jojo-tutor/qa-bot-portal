@@ -1,8 +1,8 @@
-import axios from 'axios';
 import {
   all, call, put, takeLatest,
 } from 'redux-saga/effects';
-
+import queryString from 'query-string';
+import request from 'utils/request';
 import {
   actionTypes, getUsersGridSuccess, getUsersGridError,
 } from './actions';
@@ -10,19 +10,20 @@ import {
 require('es6-promise').polyfill();
 
 function* getUsersGrid({ payload }) {
+  const { limit, skip, sort } = payload;
   try {
-    const getUsers = () => axios({
-      method: 'get',
-      url: 'api/users',
-      baseURL: process.env.PORTAL_HOST,
-      headers: {
-        ...(payload.cookie ? { Cookie: payload.cookie } : {}),
-      },
+    const query = queryString.stringify({
+      limit,
+      skip,
+      sort: JSON.stringify(sort),
     });
-    const { data } = yield call(getUsers);
+    const options = {
+      method: 'get',
+      url: `api/users${query ? `?${query}` : ''}`,
+    };
+    const data = yield call(request(options));
     yield put(getUsersGridSuccess(data));
-  } catch (e) {
-    const error = e.response ? e.response.data : { name: e.name, message: e.message };
+  } catch (error) {
     yield put(getUsersGridError(error));
   }
 }

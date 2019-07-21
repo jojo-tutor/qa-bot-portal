@@ -2,8 +2,14 @@ import { actionTypes } from './actions';
 
 export const initialState = {
   grid: {
-    list: [],
     count: 0,
+    pages: 0,
+    list: [],
+  },
+  gridOptions: {
+    limit: 0,
+    skip: 0,
+    sort: [],
   },
   gridFetching: false,
   gridError: null,
@@ -14,7 +20,10 @@ function reducer(state = initialState, action) {
     case actionTypes.GET_USERS_GRID:
       return {
         ...state,
-        ...{ gridFetching: true },
+        ...{
+          gridOptions: action.payload,
+          gridFetching: true,
+        },
       };
 
     case actionTypes.GET_USERS_GRID_SUCCESS:
