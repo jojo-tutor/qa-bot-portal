@@ -20,29 +20,30 @@ const Users = memo((props) => {
     setState(prevState => ({ ...prevState, initialLoad: false }));
   }, []);
 
+  console.log('@state', state);
   console.log(key, page);
 
   const columns = [
     {
       Header: 'First Name',
-      accessor: 'firstName',
+      accessor: 'first_name',
     },
     {
       Header: 'Last Name',
-      id: 'lastName',
-      accessor: d => d.lastName,
+      id: 'last_name',
+      accessor: d => d.last_name,
     },
     {
-      Header: 'Age',
-      accessor: 'age',
+      Header: 'Email',
+      accessor: 'email',
+    },
+    {
+      Header: 'Role',
+      accessor: 'role',
     },
     {
       Header: 'Status',
       accessor: 'status',
-    },
-    {
-      Header: 'Visits',
-      accessor: 'visits',
     },
   ];
 
@@ -74,9 +75,13 @@ const Users = memo((props) => {
 });
 
 Users.getInitialProps = async (props) => {
-  const { store, isServer } = props.ctx;
+  const { store, isServer, req } = props.ctx;
 
-  store.dispatch(getUsersGrid());
+  if (isServer) {
+    store.dispatch(getUsersGrid({
+      cookie: req.headers.cookie,
+    }));
+  }
 
   return { isServer };
 };

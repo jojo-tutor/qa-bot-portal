@@ -14,7 +14,9 @@ function reducer(state = initialState, action) {
     case actionTypes.GET_DASHBOARD_GRID:
       return {
         ...state,
-        ...{ gridFetching: true },
+        ...{
+          gridFetching: true,
+        },
       };
 
     case actionTypes.GET_DASHBOARD_GRID_SUCCESS:

@@ -1,7 +1,7 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
-import theme from 'theme';
+import theme from 'layouts/theme';
 
 class MyDocument extends Document {
   render() {
@@ -19,6 +19,10 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+          <link
+            rel="stylesheet"
+            href="/static/react-table.css"
           />
         </Head>
         <body>

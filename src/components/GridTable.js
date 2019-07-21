@@ -6,9 +6,6 @@ import cn from 'clsx';
 import ReactTable from 'react-table';
 import { makeStyles } from '@material-ui/core/styles';
 
-// Import React Table
-import 'react-table/react-table.css';
-
 const useStyles = makeStyles(theme => ({
   root: {
     height: '500px',

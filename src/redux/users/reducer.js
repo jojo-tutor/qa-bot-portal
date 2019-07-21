@@ -23,6 +23,7 @@ function reducer(state = initialState, action) {
         ...{
           grid: action.payload,
           gridFetching: false,
+          gridError: null,
         },
       };
 

@@ -7,7 +7,7 @@ import withReduxSaga from 'next-redux-saga';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from 'theme';
+import theme from 'layouts/theme';
 import createStore from 'redux/store';
 import GlobalStyles from 'layouts/Global';
 

@@ -1,29 +1,28 @@
-import es6promise, { Promise } from 'es6-promise';
+import axios from 'axios';
 import {
   all, call, put, takeLatest,
 } from 'redux-saga/effects';
 
-import makeGridData from 'utils/makeGridData';
 import {
   actionTypes, getUsersGridSuccess, getUsersGridError,
 } from './actions';
 
-es6promise.polyfill();
+require('es6-promise').polyfill();
 
-function* getUsersGrid() {
+function* getUsersGrid({ payload }) {
   try {
-    const mockRequest = () => new Promise((resolve) => {
-      setTimeout(() => {
-        const list = makeGridData();
-        resolve({
-          list,
-          count: list.length,
-        });
-      }, 1000);
+    const getUsers = () => axios({
+      method: 'get',
+      url: 'api/users',
+      baseURL: process.env.PORTAL_HOST,
+      headers: {
+        ...(payload.cookie ? { Cookie: payload.cookie } : {}),
+      },
     });
-    const result = yield call(mockRequest);
-    yield put(getUsersGridSuccess(result));
-  } catch (error) {
+    const { data } = yield call(getUsers);
+    yield put(getUsersGridSuccess(data));
+  } catch (e) {
+    const error = e.response ? e.response.data : { name: e.name, message: e.message };
     yield put(getUsersGridError(error));
   }
 }

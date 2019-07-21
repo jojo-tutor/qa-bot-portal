@@ -23,7 +23,7 @@ const newPerson = () => {
   };
 };
 
-function makeGridData(len = 1000) {
+function makeGridData(len = 50) {
   return range(len).map(d => ({
     ...newPerson(),
     children: range(10).map(newPerson),
