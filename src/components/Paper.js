@@ -8,7 +8,6 @@ const useStyles = makeStyles(theme => ({
   paper: props => ({
     padding: theme.spacing(2),
     display: 'flex',
-    overflow: 'auto',
     flexDirection: 'column',
     height: props.height,
   }),

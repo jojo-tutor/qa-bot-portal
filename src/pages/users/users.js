@@ -1,15 +1,41 @@
 import React, { memo, useState, useEffect } from 'react';
 import pick from 'lodash/pick';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Main from 'layouts/Main';
+import Paper from 'components/Paper';
 import GridTable from 'components/GridTable';
 import { getUsersGrid } from 'redux/users/actions';
 
 const key = 'users';
 
+const useStyles = makeStyles((theme) => {
+  console.log('@theme', theme);
+  return {
+    paper: {
+      flexDirection: 'row',
+    },
+    section: {
+      marginLeft: 'auto',
+      justifySelf: 'flex-end',
+    },
+    button: {
+      margin: theme.spacing(0.25),
+    },
+  };
+});
+
 const Users = memo((props) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const page = useSelector(state => state[key]);
   const [state, setState] = useState({
@@ -62,11 +88,23 @@ const Users = memo((props) => {
 
   return (
     <Main title="Users">
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid container spacing={2}>
+        <Grid item md={12}>
+          <Paper className={classes.paper}>
+            <Button variant="outlined" color="primary" size="small" className={classes.button}>Add New</Button>
+            <section className={classes.section}>
+              <Button variant="outlined" size="small" className={classes.button}>Export</Button>
+              <Button variant="outlined" size="small" className={classes.button}>Print</Button>
+              <Button variant="outlined" size="small" className={classes.button}>Refresh</Button>
+            </section>
+          </Paper>
+        </Grid>
+
+        <Grid item md={12}>
           <GridTable {...tableProps} />
         </Grid>
       </Grid>
+
     </Main>
   );
 });

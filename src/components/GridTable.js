@@ -8,7 +8,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    fontFamily: theme.typography.fontFamily,
+    // fontSize: theme.typography.htmlFontSize,
     height: '500px',
+    borderRadius: 4,
+    boxShadow: theme.shadows[1],
+
+    '& .rt-th.rt-resizable-header': {
+      margin: theme.spacing(1),
+      fontWeight: theme.typography.fontWeightBold,
+      textAlign: 'left',
+    },
+
+    '& .rt-td': {
+      margin: theme.spacing(0.5),
+    },
   },
 }));
 
