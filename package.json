@@ -31,9 +31,9 @@
     "redux-saga": "^1.0.5"
   },
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build src",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "next ./src",
+    "build": "next build ./src",
+    "start": "next start ./src",
     "lint": "eslint ./src"
   },
   "devDependencies": {

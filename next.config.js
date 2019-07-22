@@ -1,3 +1,1 @@
-module.exports = {
-  distDir: '../.next',
-};
+module.exports = {};
