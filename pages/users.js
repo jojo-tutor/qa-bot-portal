@@ -18,21 +18,18 @@ import { getUsersGrid } from 'redux/users/actions';
 
 const key = 'users';
 
-const useStyles = makeStyles((theme) => {
-  console.log('@theme', theme);
-  return {
-    paper: {
-      flexDirection: 'row',
-    },
-    section: {
-      marginLeft: 'auto',
-      justifySelf: 'flex-end',
-    },
-    button: {
-      margin: theme.spacing(0.25),
-    },
-  };
-});
+const useStyles = makeStyles(theme => ({
+  paper: {
+    flexDirection: 'row',
+  },
+  section: {
+    marginLeft: 'auto',
+    justifySelf: 'flex-end',
+  },
+  button: {
+    margin: theme.spacing(0.25),
+  },
+}));
 
 const Users = memo((props) => {
   const classes = useStyles();

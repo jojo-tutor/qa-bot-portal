@@ -12,7 +12,7 @@ function* getUsersGrid({ payload }) {
   try {
     const options = {
       method: 'get',
-      url: 'api/users',
+      url: '/api/users',
       params: payload,
     };
     const data = yield call(request(options));

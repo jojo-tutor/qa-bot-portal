@@ -10,7 +10,8 @@ module.exports = {
         "react/jsx-one-expression-per-line": 0,
         "linebreak-style": 0,
         "react/forbid-prop-types": 0,
-        "no-param-reassign": 0
+        "no-param-reassign": 0,
+        "import/no-self-import": 0
     },
     "settings": {
         "import/resolver": {
