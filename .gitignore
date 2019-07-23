@@ -18,6 +18,3 @@ yarn-error.log*
 
 # Next.js
 /.next
-
-# Now
-now.json

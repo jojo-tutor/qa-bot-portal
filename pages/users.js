@@ -36,7 +36,7 @@ const Users = memo((props) => {
   const dispatch = useDispatch();
   const page = useSelector(state => state[key]);
   const [state, setState] = useState({
-    initialLoad: true,
+    initialLoad: props.initialLoad,
   });
 
   useEffect(() => {
@@ -108,15 +108,18 @@ const Users = memo((props) => {
 
 Users.getInitialProps = async (props) => {
   const { store, isServer } = props.ctx;
+  const childProps = { initialLoad: false };
 
   if (isServer) {
+    childProps.initialLoad = true;
     store.dispatch(getUsersGrid({
       page: 0,
       limit: 20,
     }));
   }
 
-  return { isServer };
+
+  return { isServer, ...childProps };
 };
 
 export default Users;

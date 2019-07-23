@@ -1,0 +1,24 @@
+{
+  "name": "qa-bot-portal",
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next"
+    },
+    {
+      "src": "api/middleware.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/middleware.js"
+    }
+  ],
+  "env": {
+    "PORT": "@port",
+    "API_HOST": "@api_host"
+  }
+}

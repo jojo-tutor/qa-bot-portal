@@ -1,4 +1,3 @@
-import es6promise, { Promise } from 'es6-promise';
 import {
   all, call, put, takeLatest,
 } from 'redux-saga/effects';
@@ -6,8 +5,6 @@ import {
 import {
   actionTypes, getDashboardGridSuccess, getDashboardGridError,
 } from './actions';
-
-es6promise.polyfill();
 
 function* getDashboardGrid() {
   try {

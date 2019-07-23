@@ -6,8 +6,6 @@ import {
   actionTypes, getUsersGridSuccess, getUsersGridError,
 } from './actions';
 
-require('es6-promise').polyfill();
-
 function* getUsersGrid({ payload }) {
   try {
     const options = {
