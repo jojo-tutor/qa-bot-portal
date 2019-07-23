@@ -18,8 +18,18 @@ const paramsSerializer = (params) => {
 };
 
 const instance = axios.create({
-  baseUrl: 'http://localhost:3001/',
   paramsSerializer,
 });
+
+instance.interceptors.request.use(
+  (config) => {
+    if (config.headers.Source === 'server') {
+      const base = process.env.API_HOST;
+      const endpoint = config.url.replace('/api', '');
+      config.url = `${base}${endpoint}`;
+    }
+    return config;
+  },
+);
 
 export default instance;

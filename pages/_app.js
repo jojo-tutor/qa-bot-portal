@@ -18,6 +18,7 @@ class MyApp extends App {
 
     // get & set cookie for server request
     if (isServer) {
+      axios.defaults.headers.Source = 'server';
       axios.defaults.headers.Cookie = req.headers.cookie;
     }
 
