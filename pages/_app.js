@@ -16,8 +16,6 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { isServer, req } = ctx;
 
-    console.log('@@ getInitialProps req.headers', req.headers);
-
     if (isServer) {
       // get & set cookie for server request
       axios.defaults.headers.Cookie = req.headers.cookie;

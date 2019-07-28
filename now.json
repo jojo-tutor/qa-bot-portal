@@ -18,7 +18,8 @@
     }
   ],
   "env": {
-    "PORT": "@port",
-    "API_HOST": "@api_host"
+    "API_HOST": "@api_host",
+    "AUTH_USER": "@auth_user",
+    "AUTH_PASSWORD": "@auth_password"
   }
 }
