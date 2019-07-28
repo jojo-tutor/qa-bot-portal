@@ -11,6 +11,7 @@ import theme from 'layouts/theme';
 import axios from 'utils/axios';
 import createStore from 'redux/store';
 import GlobalStyles from 'layouts/Global';
+import Notification from 'containers/Notification';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -54,6 +55,7 @@ class MyApp extends App {
           <CssBaseline />
           <GlobalStyles />
           <Provider store={store}>
+            <Notification />
             <Component {...pageProps} />
           </Provider>
         </ThemeProvider>
