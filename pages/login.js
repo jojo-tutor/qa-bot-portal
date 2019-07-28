@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { loginUser } from 'redux/session/actions';
 
 const useStyles = makeStyles(theme => ({
@@ -51,6 +52,7 @@ const key = 'session';
 
 const Login = () => {
   const classes = useStyles();
+  const router = useRouter();
   const dispatch = useDispatch();
   const page = useSelector(state => state[key]);
 
@@ -58,6 +60,12 @@ const Login = () => {
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (page.data.email) {
+      router.push('/');
+    }
+  }, [page.data.email]);
 
   const handleChange = (evt) => {
     const { id, value } = evt.target;

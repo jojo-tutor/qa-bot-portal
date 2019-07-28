@@ -12,10 +12,11 @@ import axios from 'utils/axios';
 import createStore from 'redux/store';
 import GlobalStyles from 'layouts/Global';
 import Notification from 'containers/Notification';
+import { getSession } from 'redux/session/actions';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const { isServer, req } = ctx;
+    const { isServer, store, req } = ctx;
 
     if (isServer) {
       // get & set cookie for server request
@@ -23,6 +24,10 @@ class MyApp extends App {
 
       // get & set baseUrl for server request
       axios.defaults.headers.HostUrl = `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`;
+
+      if (!req.url.includes('/login')) {
+        await store.dispatch(getSession());
+      }
     }
 
     // wait for server-side request to resolve

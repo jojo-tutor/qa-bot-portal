@@ -1,6 +1,8 @@
+import { actionTypes as errorTypes } from 'redux/errors/actions';
 import { actionTypes } from './actions';
 
 export const initialState = {
+  initialized: false,
   data: {
     email: '',
     first_name: '',
@@ -37,6 +39,47 @@ function reducer(state = initialState, action) {
           loggingIn: false,
         },
       };
+
+    case actionTypes.GET_SESSION:
+      return {
+        ...state,
+        ...{
+          gettingSession: true,
+        },
+      };
+
+    case actionTypes.GET_SESSION_SUCCESS:
+      return {
+        ...state,
+        ...{
+          data: action.payload,
+          gettingSession: false,
+          initialized: true,
+        },
+      };
+
+    case actionTypes.GET_SESSION_ERROR:
+      return {
+        ...state,
+        ...{
+          error: action.payload,
+          gettingSession: false,
+          initialized: true,
+        },
+      };
+
+    case errorTypes.THROW_ERROR:
+      if (action.payload.status === 401) {
+        return {
+          ...state,
+          ...{
+            data: {
+              ...initialState.data,
+            },
+          },
+        };
+      }
+      return state;
 
     default:
       return state;

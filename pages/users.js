@@ -1,5 +1,6 @@
 import React, { memo, useState, useEffect } from 'react';
 import pick from 'lodash/pick';
+import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,7 +10,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useSelector, useDispatch } from 'react-redux';
+import Authenticated, { withAuthentication } from 'containers/Authenticated';
 
 import Main from 'layouts/Main';
 import Paper from 'components/Paper';
@@ -31,20 +34,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+const isAuthenticated = session => session.data && session.data.email;
+
 const Users = memo((props) => {
+  const { initialLoad } = props;
+  const router = useRouter();
   const classes = useStyles();
+
   const dispatch = useDispatch();
   const page = useSelector(state => state[key]);
-  const [state, setState] = useState({
-    initialLoad: props.initialLoad,
-  });
+  const session = useSelector(state => state.session);
+  const [state, setState] = useState({ initialLoad });
+  const authenticated = isAuthenticated(session);
+
+  useEffect(() => {
+    if (!authenticated) {
+      router.push('/login?return=/users');
+    }
+  }, [authenticated]);
 
   useEffect(() => {
     setState(prevState => ({ ...prevState, initialLoad: false }));
   }, []);
-
-  console.log('@state', state);
-  console.log(key, page);
 
   const columns = [
     {
@@ -83,6 +95,10 @@ const Users = memo((props) => {
     onFetchData: fetchData,
   };
 
+  if (!authenticated) {
+    return <CircularProgress />;
+  }
+
   return (
     <Main title="Users">
       <Grid container spacing={2}>
@@ -106,11 +122,14 @@ const Users = memo((props) => {
   );
 });
 
+
 Users.getInitialProps = async (props) => {
   const { store, isServer } = props.ctx;
+  const { session } = store.getState();
+  const authenticated = isAuthenticated(session);
   const childProps = { initialLoad: false };
 
-  if (isServer) {
+  if (isServer && authenticated) {
     childProps.initialLoad = true;
     store.dispatch(getUsersGrid({
       page: 0,

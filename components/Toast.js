@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -93,7 +93,11 @@ function Wrapper(props) {
     id, message, type, onClose,
   } = props;
   const classes = useStyles2();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState();
+
+  useEffect(() => {
+    setOpen(true);
+  }, []);
 
   function handleClose(evt, reason) {
     if (reason === 'clickaway') {

@@ -1,13 +1,13 @@
 import axios from './axios';
 
-const apiRequest = (options, ax = axios) => () => ax(options)
+const apiRequest = (options, put, ax = axios) => () => ax(options)
   .then(({ data }) => data)
   .catch((error) => {
     const {
       request, response = {}, name,
     } = error;
 
-    if (request) {
+    if (request && request.response) {
       response.data = JSON.parse(request.response);
     } else if (response.data && typeof response.data === 'string') {
       response.data = {
@@ -16,7 +16,7 @@ const apiRequest = (options, ax = axios) => () => ax(options)
       };
     }
 
-    return Promise.reject(response.data);
+    return Promise.reject({ ...response.data, status: response.status }); // eslint-disable-line
   });
 
 export default apiRequest;

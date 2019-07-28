@@ -3,8 +3,9 @@ import {
 } from 'redux-saga/effects';
 import request from 'utils/request';
 import { addNotification } from 'redux/notifications/actions';
+import { throwError } from 'redux/errors/actions';
 import {
-  actionTypes, loginUserSuccess, loginUserError,
+  actionTypes, loginUserSuccess, loginUserError, getSessionSuccess, getSessionError,
 } from './actions';
 
 function* loginUser({ payload }) {
@@ -14,12 +15,29 @@ function* loginUser({ payload }) {
       url: '/api/login',
       data: payload,
     };
-    const data = yield call(request(options));
+    const data = yield call(request(options, put));
     yield put(loginUserSuccess(data));
   } catch (error) {
     yield all([
       put(loginUserError(error)),
-      put(addNotification({ ...error, type: 'error' })),
+      put(throwError(error)),
+    ]);
+  }
+}
+
+function* getSession({ payload }) {
+  try {
+    const options = {
+      method: 'get',
+      url: '/api/session',
+      data: payload,
+    };
+    const data = yield call(request(options, put));
+    yield put(getSessionSuccess(data));
+  } catch (error) {
+    yield all([
+      put(getSessionError(error)),
+      put(throwError(error)),
     ]);
   }
 }
@@ -27,6 +45,7 @@ function* loginUser({ payload }) {
 function* root() {
   yield all([
     takeLatest(actionTypes.LOGIN_USER, loginUser),
+    takeLatest(actionTypes.GET_SESSION, getSession),
   ]);
 }
 
