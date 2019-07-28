@@ -23,10 +23,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    if (config.headers.Source === 'server') {
-      const base = process.env.API_HOST;
-      const endpoint = config.url.replace('/api', '');
-      config.url = `${base}${endpoint}`;
+    if (!process.browser) {
+      config.url = `${config.headers.HostUrl}${config.url}`;
     }
     return config;
   },

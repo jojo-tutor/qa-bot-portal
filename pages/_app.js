@@ -16,10 +16,14 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { isServer, req } = ctx;
 
-    // get & set cookie for server request
+    console.log('@@ getInitialProps req.headers', req.headers);
+
     if (isServer) {
-      axios.defaults.headers.Source = 'server';
+      // get & set cookie for server request
       axios.defaults.headers.Cookie = req.headers.cookie;
+
+      // get & set baseUrl for server request
+      axios.defaults.headers.HostUrl = `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`;
     }
 
     // wait for server-side request to resolve

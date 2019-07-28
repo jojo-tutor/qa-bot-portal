@@ -11,6 +11,14 @@ app.use(
     pathRewrite: {
       '^/api': '',
     },
+    onProxyReq: (proxyReq) => {
+      // set Basic Auth
+      const authString = `${process.env.AUTH_USER}:${process.env.AUTH_PASSWORD}`;
+      proxyReq.setHeader(
+        'Authorization',
+        `Basic ${Buffer.from(authString).toString('base64')}`,
+      );
+    },
   }),
 );
 
