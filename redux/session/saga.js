@@ -2,10 +2,9 @@ import {
   all, call, put, takeLatest,
 } from 'redux-saga/effects';
 import request from 'utils/request';
-import { addNotification } from 'redux/notifications/actions';
 import { throwError } from 'redux/errors/actions';
 import {
-  actionTypes, loginUserSuccess, loginUserError, getSessionSuccess, getSessionError,
+  actionTypes, loginUserSuccess, getSessionSuccess,
 } from './actions';
 
 function* loginUser({ payload }) {
@@ -19,7 +18,6 @@ function* loginUser({ payload }) {
     yield put(loginUserSuccess(data));
   } catch (error) {
     yield all([
-      put(loginUserError(error)),
       put(throwError(error)),
     ]);
   }
@@ -35,10 +33,7 @@ function* getSession({ payload }) {
     const data = yield call(request(options, put));
     yield put(getSessionSuccess(data));
   } catch (error) {
-    yield all([
-      put(getSessionError(error)),
-      put(throwError(error)),
-    ]);
+    yield put(throwError(error));
   }
 }
 

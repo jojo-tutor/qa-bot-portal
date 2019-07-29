@@ -2,14 +2,12 @@ import { actionTypes as errorTypes } from 'redux/errors/actions';
 import { actionTypes } from './actions';
 
 export const initialState = {
-  initialized: false,
   data: {
     email: '',
     first_name: '',
     last_name: '',
   },
   loggingIn: false,
-  error: null,
 };
 
 function reducer(state = initialState, action) {
@@ -31,15 +29,6 @@ function reducer(state = initialState, action) {
         },
       };
 
-    case actionTypes.LOGIN_USER_ERROR:
-      return {
-        ...state,
-        ...{
-          error: action.payload,
-          loggingIn: false,
-        },
-      };
-
     case actionTypes.GET_SESSION:
       return {
         ...state,
@@ -54,17 +43,6 @@ function reducer(state = initialState, action) {
         ...{
           data: action.payload,
           gettingSession: false,
-          initialized: true,
-        },
-      };
-
-    case actionTypes.GET_SESSION_ERROR:
-      return {
-        ...state,
-        ...{
-          error: action.payload,
-          gettingSession: false,
-          initialized: true,
         },
       };
 
@@ -76,6 +54,7 @@ function reducer(state = initialState, action) {
             data: {
               ...initialState.data,
             },
+            loggingIn: false,
           },
         };
       }

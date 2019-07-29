@@ -1,3 +1,4 @@
+import { actionTypes as errorTypes } from 'redux/errors/actions';
 import { actionTypes } from './actions';
 
 export const initialState = {
@@ -12,7 +13,6 @@ export const initialState = {
     sort: [],
   },
   gridFetching: false,
-  gridError: null,
 };
 
 function reducer(state = initialState, action) {
@@ -32,15 +32,13 @@ function reducer(state = initialState, action) {
         ...{
           grid: action.payload,
           gridFetching: false,
-          gridError: null,
         },
       };
 
-    case actionTypes.GET_USERS_GRID_ERROR:
+    case errorTypes.THROW_ERROR:
       return {
         ...state,
         ...{
-          gridError: action.payload,
           gridFetching: false,
         },
       };

@@ -2,10 +2,9 @@ import {
   all, call, put, takeLatest,
 } from 'redux-saga/effects';
 import request from 'utils/request';
-import { addNotification } from 'redux/notifications/actions';
 import { throwError } from 'redux/errors/actions';
 import {
-  actionTypes, getUsersGridSuccess, getUsersGridError,
+  actionTypes, getUsersGridSuccess,
 } from './actions';
 
 function* getUsersGrid({ payload }) {
@@ -18,10 +17,7 @@ function* getUsersGrid({ payload }) {
     const data = yield call(request(options, put));
     yield put(getUsersGridSuccess(data));
   } catch (error) {
-    yield all([
-      put(getUsersGridError(error)),
-      put(throwError(error)),
-    ]);
+    yield put(throwError(error));
   }
 }
 

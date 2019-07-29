@@ -6,7 +6,6 @@ export const initialState = {
     count: 0,
   },
   gridFetching: false,
-  gridError: null,
 };
 
 function reducer(state = initialState, action) {

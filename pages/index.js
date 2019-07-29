@@ -14,8 +14,6 @@ const Dashboard = (props) => {
   const count = useSelector(state => state);
   const dispatch = useDispatch();
 
-  console.log('@@ Dashboard');
-
   React.useEffect(() => {
     // dispatch(loadData());
   }, [true]);
