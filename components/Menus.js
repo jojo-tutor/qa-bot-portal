@@ -57,7 +57,7 @@ const MenuItems = ({ items }) => {
     const {
       id, label = upperFirst(id), href = `/${id}`, icon: Icon,
     } = item;
-    const selected = router.pathname === href;
+    const selected = href === '/' ? router.pathname === href : router.pathname.includes(href);
 
     return (
       <Link key={id} href={href}>
