@@ -132,10 +132,13 @@ const Users = memo((props) => {
                     required
                     fullWidth
                     autoFocus
-                    margin="normal"
+                    margin="dense"
                     id="first_name"
                     label="First name"
+                    variant="outlined"
                     value={state.email}
+                    error
+                    helperText="This field is required"
                     onChange={handleChange}
                   />
                 </Grid>
@@ -143,9 +146,10 @@ const Users = memo((props) => {
                   <TextField
                     required
                     fullWidth
-                    margin="normal"
+                    margin="dense"
                     id="last_name"
                     label="Last name"
+                    variant="outlined"
                     value={state.email}
                     onChange={handleChange}
                   />
@@ -155,9 +159,10 @@ const Users = memo((props) => {
                   <TextField
                     required
                     fullWidth
-                    margin="normal"
+                    margin="dense"
                     id="email"
                     label="Email"
+                    variant="outlined"
                     value={state.email}
                     onChange={handleChange}
                   />
