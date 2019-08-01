@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { compose } from 'redux';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -7,6 +8,7 @@ import Paper from 'components/Paper';
 import Chart from 'components/Chart';
 import Deposits from 'components/Deposits';
 import Orders from 'components/Orders';
+import Authenticated, { withAuthentication } from 'containers/Authenticated';
 
 const Dashboard = (props) => {
   const count = useSelector(state => state);
@@ -44,4 +46,6 @@ const Dashboard = (props) => {
   );
 };
 
-export default memo(Dashboard);
+export default compose(
+  memo,
+)(Dashboard);

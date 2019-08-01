@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, memo } from 'react';
+import { compose } from 'redux';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -83,8 +84,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    padding: theme.spacing(2),
   },
   fixedHeight: {
     height: 240,
@@ -94,7 +94,7 @@ const useStyles = makeStyles(theme => ({
 const Main = (props) => {
   const { title, children } = props;
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -167,4 +167,6 @@ const Main = (props) => {
   );
 };
 
-export default React.memo(Main);
+export default compose(
+  memo,
+)(Main);

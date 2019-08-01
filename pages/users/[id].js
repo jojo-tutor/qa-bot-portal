@@ -7,14 +7,20 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeftOutlined';
+import SaveIcon from '@material-ui/icons/SaveOutlined';
+import CancelIcon from '@material-ui/icons/CancelOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Link from '@material-ui/core/Link';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
-import SaveAltIcon from '@material-ui/icons/SaveAltOutlined';
-import PrintIcon from '@material-ui/icons/PrintOutlined';
-import RefreshIcon from '@material-ui/icons/RefreshOutlined';
+
 import { useSelector, useDispatch } from 'react-redux';
 import Authenticated, { withAuthentication } from 'containers/Authenticated';
 
@@ -36,9 +42,11 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(0.25),
   },
+
   buttonGroup: {
     display: 'flex',
   },
+
   icon: {
     marginRight: theme.spacing(0.5),
     fontSize: 20,
@@ -59,9 +67,11 @@ const Users = memo((props) => {
   const [state, setState] = useState({ initialLoad });
   const authenticated = isAuthenticated(session);
 
+  const handleChange = () => {};
+
   useEffect(() => {
     if (!authenticated) {
-      router.push('/login?return=/users');
+      // router.push('/login?return=/users');
     }
   }, [authenticated]);
 
@@ -69,45 +79,9 @@ const Users = memo((props) => {
     setState(prevState => ({ ...prevState, initialLoad: false }));
   }, []);
 
-  const columns = [
-    {
-      Header: 'First Name',
-      accessor: 'first_name',
-    },
-    {
-      Header: 'Last Name',
-      id: 'last_name',
-      accessor: d => d.last_name,
-    },
-    {
-      Header: 'Email',
-      accessor: 'email',
-    },
-    {
-      Header: 'Role',
-      accessor: 'role',
-    },
-    {
-      Header: 'Status',
-      accessor: 'status',
-    },
-  ];
-
-  const fetchData = (options) => {
-    dispatch(getUsersGrid(options));
-  };
-
-  const tableProps = {
-    columns,
-    initialLoad: state.initialLoad,
-    data: page.grid.list,
-    pages: page.grid.pages,
-    loading: page.gridFetching,
-    onFetchData: fetchData,
-  };
 
   if (!authenticated) {
-    return <CircularProgress />;
+    // return <CircularProgress />;
   }
 
   return (
@@ -118,38 +92,31 @@ const Users = memo((props) => {
             <div className={classes.buttonGroup}>
               <Button
                 variant="outlined"
-                color="primary"
                 size="small"
                 className={classes.button}
-                onClick={() => router.push('/users/new')}
+                onClick={() => router.push('/users')}
               >
-                <PersonAddIcon className={classes.icon} />
-              New User
+                <KeyboardArrowLeftIcon className={classes.icon} />
+                Back to Grid
               </Button>
               <section className={classes.section}>
                 <Button
                   variant="outlined"
                   size="small"
                   className={classes.button}
+                  onClick={() => router.push('/users')}
                 >
-                  <SaveAltIcon className={classes.icon} />
-                  Download CSV
+                  <CancelIcon className={classes.icon} />
+                  Cancel
                 </Button>
                 <Button
+                  color="primary"
                   variant="outlined"
                   size="small"
                   className={classes.button}
                 >
-                  <PrintIcon className={classes.icon} />
-                  Print
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  className={classes.button}
-                >
-                  <RefreshIcon className={classes.icon} />
-                  Refresh
+                  <SaveIcon className={classes.icon} />
+                  Save User
                 </Button>
               </section>
             </div>
@@ -157,8 +124,54 @@ const Users = memo((props) => {
         </Grid>
 
         <Grid item md={12}>
-          <GridTable {...tableProps} />
+          <Paper className={classes.paper}>
+            <form noValidate autoComplete="off">
+              <Grid container spacing={2}>
+                <Grid item md={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    autoFocus
+                    margin="dense"
+                    id="first_name"
+                    label="First name"
+                    variant="outlined"
+                    value={state.email}
+                    error
+                    helperText="This field is required"
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item md={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    margin="dense"
+                    id="last_name"
+                    label="Last name"
+                    variant="outlined"
+                    value={state.email}
+                    onChange={handleChange}
+                  />
+                </Grid>
+
+                <Grid item md={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    margin="dense"
+                    id="email"
+                    label="Email"
+                    variant="outlined"
+                    value={state.email}
+                    onChange={handleChange}
+                  />
+                </Grid>
+              </Grid>
+            </form>
+          </Paper>
         </Grid>
+
       </Grid>
 
     </Main>

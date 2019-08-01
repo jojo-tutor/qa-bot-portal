@@ -11,5 +11,6 @@ git clone https://github.com/jojo-tutor/qa-bot-portal.git && cd qa-bot-portal
 Install it and run:
 
 ```sh
-yarn && yarn dev
+yarn
+now dev
 ```

@@ -11,10 +11,14 @@ import theme from 'layouts/theme';
 import axios from 'utils/axios';
 import createStore from 'redux/store';
 import GlobalStyles from 'layouts/Global';
+import Notification from 'containers/Notification';
+import { getSession } from 'redux/session/actions';
+
+const notAuthenticatedRoutes = ['/login', '/signup', '/forgot-password'];
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const { isServer, req } = ctx;
+    const { isServer, store, req } = ctx;
 
     if (isServer) {
       // get & set cookie for server request
@@ -22,6 +26,10 @@ class MyApp extends App {
 
       // get & set baseUrl for server request
       axios.defaults.headers.HostUrl = `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`;
+
+      if (!notAuthenticatedRoutes.some(e => !req.url.includes(e))) {
+        await store.dispatch(getSession());
+      }
     }
 
     // wait for server-side request to resolve
@@ -54,6 +62,7 @@ class MyApp extends App {
           <CssBaseline />
           <GlobalStyles />
           <Provider store={store}>
+            <Notification />
             <Component {...pageProps} />
           </Provider>
         </ThemeProvider>
