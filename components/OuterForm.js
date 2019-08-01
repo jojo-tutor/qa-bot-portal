@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const OuterForm = ({ children }) => {
+function OuterForm({ children }) {
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
@@ -66,7 +66,7 @@ const OuterForm = ({ children }) => {
       </Grid>
     </Grid>
   );
-};
+}
 
 OuterForm.propTypes = {
   children: PropTypes.node.isRequired,

@@ -58,7 +58,12 @@ function reducer(state = initialState, action) {
           },
         };
       }
-      return state;
+      return {
+        ...state,
+        ...{
+          loggingIn: false,
+        },
+      };
 
     default:
       return state;
