@@ -61,7 +61,7 @@ const Users = memo((props) => {
 
   useEffect(() => {
     if (!authenticated) {
-      // router.push('/login?return=/users');
+      router.push('/login?return=/users');
     }
   }, [authenticated]);
 
@@ -107,7 +107,7 @@ const Users = memo((props) => {
   };
 
   if (!authenticated) {
-    // return <CircularProgress />;
+    return <CircularProgress />;
   }
 
   return (

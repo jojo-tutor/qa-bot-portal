@@ -14,6 +14,8 @@ import GlobalStyles from 'layouts/Global';
 import Notification from 'containers/Notification';
 import { getSession } from 'redux/session/actions';
 
+const notAuthenticatedRoutes = ['/login', '/signup', '/forgot-password'];
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { isServer, store, req } = ctx;
@@ -25,7 +27,7 @@ class MyApp extends App {
       // get & set baseUrl for server request
       axios.defaults.headers.HostUrl = `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`;
 
-      if (!req.url.includes('/login')) {
+      if (!notAuthenticatedRoutes.some(e => !req.url.includes(e))) {
         await store.dispatch(getSession());
       }
     }
