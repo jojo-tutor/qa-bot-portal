@@ -13,8 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { loginUser } from 'redux/session/actions';
 import OuterForm from 'components/OuterForm';
-import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
+import useFormikForm from 'components/FormikForm';
 
 const key = 'session';
 
@@ -43,6 +43,58 @@ function Login() {
     );
   };
 
+  const FormikForm = useFormikForm({
+    fields: [
+      {
+        id: 'email',
+        label: 'Email Address',
+        required: true,
+        autoFocus: true,
+        defaultValue: '',
+        component: TextField,
+      },
+      {
+        id: 'password',
+        label: 'Password',
+        type: 'password',
+        required: true,
+        defaultValue: '',
+        autoComplete: 'new-password',
+        component: TextField,
+      },
+      {
+        id: 'rememberMe',
+        type: 'checkbox',
+        render: () => (
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+        ),
+      },
+      {
+        id: 'submit',
+        type: 'submit',
+        render: () => (
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            size="large"
+            className="submit"
+            disabled={page.loggingIn}
+          >
+            {page.loggingIn && <CircularProgress size={24} className="progress" />}
+                  Sign In
+          </Button>
+        ),
+      },
+    ],
+    schema: loginSchema,
+    onSubmit: handleLogin,
+  });
+
   return (
     <OuterForm>
       <Avatar className="avatar">
@@ -52,80 +104,7 @@ function Login() {
             Sign in
       </Typography>
 
-      <Formik
-        validateOnBlur={false}
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        validationSchema={loginSchema}
-        onSubmit={(values, actions) => {
-          console.log({ values, actions });
-          handleLogin(values);
-        }}
-        render={(formProps) => {
-          console.log('@formProps', formProps);
-          const {
-            errors, touched, handleBlur, handleChange, handleSubmit,
-          } = formProps;
-          return (
-            <form
-              noValidate
-              autoComplete="off"
-              className="form"
-              onSubmit={handleSubmit}
-            >
-              <Field
-                required
-                fullWidth
-                autoFocus
-                id="email"
-                name="email"
-                variant="outlined"
-                margin="normal"
-                label="Email Address"
-                error={Boolean(touched.email && errors.email)}
-                helperText={touched.email && errors.email}
-                component={TextField}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
-              <Field
-                required
-                fullWidth
-                id="password"
-                name="password"
-                variant="outlined"
-                margin="normal"
-                label="Password"
-                type="password"
-                autoComplete="new-password"
-                error={Boolean(touched.password && errors.password)}
-                helperText={touched.password && errors.password}
-                component={TextField}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                size="large"
-                className="submit"
-                disabled={page.loggingIn}
-              >
-                {page.loggingIn && <CircularProgress size={24} className="progress" />}
-                  Sign In
-              </Button>
-            </form>
-          );
-        }}
-      />
+      <FormikForm onSubmit={handleLogin} />
 
       <Grid container>
         <Grid item xs>
@@ -142,5 +121,6 @@ function Login() {
     </OuterForm>
   );
 }
+
 
 export default Login;
