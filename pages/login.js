@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { loginUser } from 'redux/session/actions';
 import OuterForm from 'components/OuterForm';
 import * as Yup from 'yup';
-import useFormikForm from 'components/FormikForm';
+import FormikForm from 'components/FormikForm';
 
 const key = 'session';
 
@@ -43,57 +43,53 @@ function Login() {
     );
   };
 
-  const FormikForm = useFormikForm({
-    fields: [
-      {
-        id: 'email',
-        label: 'Email Address',
-        required: true,
-        autoFocus: true,
-        defaultValue: '',
-        component: TextField,
-      },
-      {
-        id: 'password',
-        label: 'Password',
-        type: 'password',
-        required: true,
-        defaultValue: '',
-        autoComplete: 'new-password',
-        component: TextField,
-      },
-      {
-        id: 'rememberMe',
-        type: 'checkbox',
-        render: () => (
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-        ),
-      },
-      {
-        id: 'submit',
-        type: 'submit',
-        render: () => (
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            size="large"
-            className="submit"
-            disabled={page.loggingIn}
-          >
-            {page.loggingIn && <CircularProgress size={24} className="progress" />}
-                  Sign In
-          </Button>
-        ),
-      },
-    ],
-    schema: loginSchema,
-    onSubmit: handleLogin,
-  });
+  const fields = [
+    {
+      id: 'email',
+      label: 'Email Address',
+      required: true,
+      autoFocus: true,
+      defaultValue: '',
+      component: TextField,
+    },
+    {
+      id: 'password',
+      label: 'Password',
+      type: 'password',
+      required: true,
+      defaultValue: '',
+      autoComplete: 'new-password',
+      component: TextField,
+    },
+    {
+      id: 'rememberMe',
+      type: 'checkbox',
+      render: () => (
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
+      ),
+    },
+    {
+      id: 'submit',
+      type: 'submit',
+      render: () => (
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          size="large"
+          className="submit"
+          disabled={page.loggingIn}
+        >
+          {page.loggingIn && <CircularProgress size={24} className="progress" />}
+                Sign In
+        </Button>
+      ),
+    },
+  ];
 
   return (
     <OuterForm>
@@ -101,15 +97,19 @@ function Login() {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-            Sign in
+        Sign in
       </Typography>
 
-      <FormikForm onSubmit={handleLogin} />
+      <FormikForm
+        fields={fields}
+        schema={loginSchema}
+        onSubmit={handleLogin}
+      />
 
       <Grid container>
         <Grid item xs>
           <Link href="/forgot-password" variant="body2">
-                  Forgot password?
+            Forgot password?
           </Link>
         </Grid>
         <Grid item>

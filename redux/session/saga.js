@@ -4,7 +4,7 @@ import {
 import request from 'utils/request';
 import { throwError } from 'redux/errors/actions';
 import {
-  actionTypes, loginUserSuccess, getSessionSuccess,
+  actionTypes, loginUserSuccess, getSessionSuccess, signupUserSuccess,
 } from './actions';
 
 function* loginUser({ payload }) {
@@ -16,6 +16,22 @@ function* loginUser({ payload }) {
     };
     const data = yield call(request(options, put));
     yield put(loginUserSuccess(data));
+  } catch (error) {
+    yield all([
+      put(throwError(error)),
+    ]);
+  }
+}
+
+function* signupUser({ payload }) {
+  try {
+    const options = {
+      method: 'post',
+      url: '/api/signup',
+      data: payload,
+    };
+    const data = yield call(request(options, put));
+    yield put(signupUserSuccess(data));
   } catch (error) {
     yield all([
       put(throwError(error)),
@@ -40,6 +56,7 @@ function* getSession({ payload }) {
 function* root() {
   yield all([
     takeLatest(actionTypes.LOGIN_USER, loginUser),
+    takeLatest(actionTypes.SIGNUP_USER, signupUser),
     takeLatest(actionTypes.GET_SESSION, getSession),
   ]);
 }

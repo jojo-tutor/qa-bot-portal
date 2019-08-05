@@ -1,6 +1,8 @@
 export const actionTypes = {
   LOGIN_USER: 'LOGIN_USER',
   LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS',
+  SIGNUP_USER: 'SIGNUP_USER',
+  SIGNUP_USER_SUCCESS: 'SIGNUP_USER_SUCCESS',
   GET_SESSION: 'GET_SESSION',
   GET_SESSION_SUCCESS: 'GET_SESSION_SUCCESS',
 };
@@ -15,6 +17,20 @@ export function loginUser(payload) {
 export function loginUserSuccess(payload) {
   return {
     type: actionTypes.LOGIN_USER_SUCCESS,
+    payload,
+  };
+}
+
+export function signupUser(payload) {
+  return {
+    type: actionTypes.SIGNUP_USER,
+    payload,
+  };
+}
+
+export function signupUserSuccess(payload) {
+  return {
+    type: actionTypes.SIGNUP_USER_SUCCESS,
     payload,
   };
 }
