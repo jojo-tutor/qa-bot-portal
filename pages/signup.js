@@ -19,10 +19,8 @@ import PasswordField from 'components/PasswordField';
 
 const signupSchema = Yup.object().shape({
   first_name: Yup.string()
-    .email('Email is invalid')
     .required('Email is required'),
   last_name: Yup.string()
-    .email('Email is invalid')
     .required('Email is required'),
   email: Yup.string()
     .email('Email is invalid')
