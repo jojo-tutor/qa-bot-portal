@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 import { signupUser } from 'redux/session/actions';
 import OuterFrom from 'components/OuterForm';
 import FormikForm from 'components/FormikForm';
+import PasswordField from 'components/PasswordField';
 
 const signupSchema = Yup.object().shape({
   first_name: Yup.string()
@@ -90,7 +91,7 @@ function SignUp() {
       required: true,
       defaultValue: '',
       autoComplete: 'new-password',
-      component: TextField,
+      component: PasswordField,
     },
     {
       id: 'subscribe',
