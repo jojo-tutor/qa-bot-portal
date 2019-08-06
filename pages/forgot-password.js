@@ -7,8 +7,61 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import OuterFrom from 'components/OuterForm';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import * as Yup from 'yup';
+import { signupUser } from 'redux/session/actions';
+import FormikForm from 'components/FormikForm';
+
+const forgotSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Email is invalid')
+    .required('Email is required'),
+});
+
+const key = 'session';
 
 function ForgotPassword() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const page = useSelector(state => state[key]);
+
+  const handleForgot = (values) => {
+    dispatch(
+      signupUser(values),
+    );
+  };
+
+  const fields = [
+    {
+      id: 'email',
+      label: 'Email',
+      required: true,
+      autoFocus: true,
+      defaultValue: '',
+      component: TextField,
+    },
+    {
+      id: 'submit',
+      type: 'submit',
+      render: () => (
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          size="large"
+          className="submit"
+          disabled={page.forgotProcessing}
+        >
+          {page.forgotProcessing && <CircularProgress size={24} className="progress" />}
+          Forgot Password
+        </Button>
+      ),
+    },
+  ];
+
   return (
     <OuterFrom>
       <Avatar className="avatart">
@@ -17,39 +70,20 @@ function ForgotPassword() {
       <Typography component="h1" variant="h5">
             Forgot Password
       </Typography>
-      <form className="form" noValidate>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              autoComplete="fname"
-              name="email"
-              variant="outlined"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              autoFocus
-            />
-          </Grid>
+
+      <FormikForm
+        fields={fields}
+        schema={forgotSchema}
+        onSubmit={handleForgot}
+      />
+
+      <Grid container justify="flex-end">
+        <Grid item>
+          <Link href="/login" variant="body2">
+            Already have an account? Sign in
+          </Link>
         </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          size="large"
-          variant="contained"
-          color="primary"
-          className="submit"
-        >
-            Forgot Password
-        </Button>
-        <Grid container justify="flex-end">
-          <Grid item>
-            <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-            </Link>
-          </Grid>
-        </Grid>
-      </form>
+      </Grid>
     </OuterFrom>
   );
 }

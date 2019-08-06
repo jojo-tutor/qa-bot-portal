@@ -3,6 +3,8 @@ export const actionTypes = {
   LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS',
   SIGNUP_USER: 'SIGNUP_USER',
   SIGNUP_USER_SUCCESS: 'SIGNUP_USER_SUCCESS',
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+  FORGOT_PASSWORD_SUCCESS: 'FORGOT_PASSWORD_SUCCESS',
   GET_SESSION: 'GET_SESSION',
   GET_SESSION_SUCCESS: 'GET_SESSION_SUCCESS',
 };
@@ -31,6 +33,20 @@ export function signupUser(payload) {
 export function signupUserSuccess(payload) {
   return {
     type: actionTypes.SIGNUP_USER_SUCCESS,
+    payload,
+  };
+}
+
+export function forgotPassword(payload) {
+  return {
+    type: actionTypes.FORGOT_PASSWORD,
+    payload,
+  };
+}
+
+export function forgotPasswordSuccess(payload) {
+  return {
+    type: actionTypes.FORGOT_PASSWORD_SUCCESS,
     payload,
   };
 }
