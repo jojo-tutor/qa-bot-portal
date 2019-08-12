@@ -90,7 +90,7 @@ const useStyles2 = makeStyles(theme => ({
 
 function Wrapper(props) {
   const {
-    id, message, type, onClose,
+    id, message, type, duration, onClose,
   } = props;
   const classes = useStyles2();
   const [open, setOpen] = useState();
@@ -115,7 +115,7 @@ function Wrapper(props) {
         horizontal: 'right',
       }}
       open={open}
-      autoHideDuration={6000}
+      autoHideDuration={duration * 1000}
       onClose={handleClose}
       className={classes.root}
     >
@@ -128,11 +128,16 @@ function Wrapper(props) {
   );
 }
 
+Wrapper.defaultProps = {
+  duration: 6, // in seconds
+};
+
 Wrapper.propTypes = {
   id: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
   onClose: PropTypes.func.isRequired,
+  duration: PropTypes.number,
 };
 
 export default Wrapper;

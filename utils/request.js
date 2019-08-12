@@ -1,6 +1,6 @@
 import axios from './axios';
 
-const apiRequest = (options, put, ax = axios) => () => ax(options)
+const apiRequest = (options, ax = axios) => () => ax(options)
   .then(({ data }) => data)
   .catch((error) => {
     const {

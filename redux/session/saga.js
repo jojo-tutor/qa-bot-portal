@@ -4,8 +4,9 @@ import {
 import request from 'utils/request';
 import { throwError } from 'redux/errors/actions';
 import {
-  actionTypes, loginUserSuccess, getSessionSuccess, signupUserSuccess, forgotPasswordSuccess,
+  actionTypes, loginUserSuccess, getSessionSuccess, signupUserSuccess, forgotPasswordSuccess, validateSignupSuccess,
 } from './actions';
+import { addNotification } from '../notifications/actions';
 
 function* loginUser({ payload }) {
   try {
@@ -14,12 +15,10 @@ function* loginUser({ payload }) {
       url: '/api/login',
       data: payload,
     };
-    const data = yield call(request(options, put));
+    const data = yield call(request(options));
     yield put(loginUserSuccess(data));
   } catch (error) {
-    yield all([
-      put(throwError(error)),
-    ]);
+    yield put(throwError(error));
   }
 }
 
@@ -30,12 +29,32 @@ function* signupUser({ payload }) {
       url: '/api/signup',
       data: payload,
     };
-    const data = yield call(request(options, put));
-    yield put(signupUserSuccess(data));
-  } catch (error) {
+    const data = yield call(request(options));
     yield all([
-      put(throwError(error)),
+      put(signupUserSuccess(data)),
+      put(addNotification({
+        type: 'success',
+        duration: 20,
+        message: 'You have successfully sign-up! Please check your email for confirmation.',
+      })),
     ]);
+  } catch (error) {
+    yield put(throwError(error));
+  }
+}
+
+function* validateSignup({ payload }) {
+  const { token } = payload;
+  try {
+    const options = {
+      method: 'put',
+      url: `/api/signup/validate?token=${token}`,
+      data: payload,
+    };
+    const data = yield call(request(options));
+    yield put(validateSignupSuccess(data));
+  } catch (error) {
+    yield put(throwError(error));
   }
 }
 
@@ -46,12 +65,10 @@ function* forgotPassword({ payload }) {
       url: '/api/forgot',
       data: payload,
     };
-    const data = yield call(request(options, put));
+    const data = yield call(request(options));
     yield put(forgotPasswordSuccess(data));
   } catch (error) {
-    yield all([
-      put(throwError(error)),
-    ]);
+    yield put(throwError(error));
   }
 }
 
@@ -62,7 +79,7 @@ function* getSession({ payload }) {
       url: '/api/session',
       data: payload,
     };
-    const data = yield call(request(options, put));
+    const data = yield call(request(options));
     yield put(getSessionSuccess(data));
   } catch (error) {
     yield put(throwError(error));
@@ -74,6 +91,7 @@ function* root() {
     takeLatest(actionTypes.LOGIN_USER, loginUser),
     takeLatest(actionTypes.SIGNUP_USER, signupUser),
     takeLatest(actionTypes.FORGOT_PASSWORD, forgotPassword),
+    takeLatest(actionTypes.VALIDATE_SIGNUP, validateSignup),
     takeLatest(actionTypes.GET_SESSION, getSession),
   ]);
 }

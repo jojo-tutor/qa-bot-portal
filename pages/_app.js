@@ -27,7 +27,7 @@ class MyApp extends App {
       // get & set baseUrl for server request
       axios.defaults.headers.HostUrl = `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`;
 
-      if (notAuthenticatedRoutes.some(e => !req.url.split('?')[0].includes(e))) {
+      if (!notAuthenticatedRoutes.some(e => req.url.split('?')[0].includes(e))) {
         await store.dispatch(getSession());
       }
     }

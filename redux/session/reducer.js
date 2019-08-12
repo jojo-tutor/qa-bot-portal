@@ -7,7 +7,10 @@ export const initialState = {
     first_name: '',
     last_name: '',
   },
+  signup: null,
+  signupValidated: null,
   loggingIn: false,
+  signingUp: false,
 };
 
 function reducer(state = initialState, action) {
@@ -46,22 +49,48 @@ function reducer(state = initialState, action) {
         },
       };
 
-    case errorTypes.THROW_ERROR:
-      if (action.payload.status === 401) {
-        return {
-          ...state,
-          ...{
-            data: {
-              ...initialState.data,
-            },
-            loggingIn: false,
-          },
-        };
-      }
+    case actionTypes.SIGNUP_USER:
       return {
         ...state,
         ...{
+          signingUp: true,
+        },
+      };
+
+    case actionTypes.SIGNUP_USER_SUCCESS:
+      return {
+        ...state,
+        ...{
+          signup: action.payload,
+          signingUp: false,
+        },
+      };
+
+    case actionTypes.VALIDATE_SIGNUP:
+      return {
+        ...state,
+        ...{
+          validatingSignup: true,
+        },
+      };
+
+    case actionTypes.VALIDATE_SIGNUP_SUCCESS:
+      return {
+        ...state,
+        ...{
+          data: action.payload,
+          validatingSignup: false,
+        },
+      };
+
+    case errorTypes.THROW_ERROR:
+      return {
+        ...state,
+        ...{
+          data: action.payload.status === 401 ? { ...initialState.data } : state.data,
           loggingIn: false,
+          signingUp: false,
+          validatingSignup: false,
         },
       };
 

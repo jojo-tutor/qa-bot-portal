@@ -14,7 +14,7 @@ function* getUsersGrid({ payload }) {
       url: '/api/users',
       params: payload,
     };
-    const data = yield call(request(options, put));
+    const data = yield call(request(options));
     yield put(getUsersGridSuccess(data));
   } catch (error) {
     yield put(throwError(error));
