@@ -62,11 +62,18 @@ function* forgotPassword({ payload }) {
   try {
     const options = {
       method: 'post',
-      url: '/api/forgot',
+      url: '/api/forgot-password',
       data: payload,
     };
     const data = yield call(request(options));
-    yield put(forgotPasswordSuccess(data));
+    yield all([
+      put(forgotPasswordSuccess(data)),
+      put(addNotification({
+        type: 'success',
+        duration: 20,
+        message: 'Forgot password successfully submitted! Please check your email to reset your password.',
+      })),
+    ]);
   } catch (error) {
     yield put(throwError(error));
   }

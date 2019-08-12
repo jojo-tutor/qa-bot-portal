@@ -49,6 +49,23 @@ function reducer(state = initialState, action) {
         },
       };
 
+    case actionTypes.FORGOT_PASSWORD:
+      return {
+        ...state,
+        ...{
+          processingForgotPassword: true,
+        },
+      };
+
+    case actionTypes.FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        ...{
+          forgotPassword: action.payload,
+          processingForgotPassword: false,
+        },
+      };
+
     case actionTypes.SIGNUP_USER:
       return {
         ...state,
@@ -91,6 +108,7 @@ function reducer(state = initialState, action) {
           loggingIn: false,
           signingUp: false,
           validatingSignup: false,
+          processingForgotPassword: false,
         },
       };
 

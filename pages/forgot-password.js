@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
-import { signupUser } from 'redux/session/actions';
+import { forgotPassword } from 'redux/session/actions';
 import FormikForm from 'components/FormikForm';
 
 const forgotSchema = Yup.object().shape({
@@ -29,7 +29,7 @@ function ForgotPassword() {
 
   const handleForgot = (values) => {
     dispatch(
-      signupUser(values),
+      forgotPassword(values),
     );
   };
 
@@ -53,9 +53,9 @@ function ForgotPassword() {
           color="primary"
           size="large"
           className="submit"
-          disabled={page.forgotProcessing}
+          disabled={page.processingForgotPassword}
         >
-          {page.forgotProcessing && <CircularProgress size={24} className="progress" />}
+          {page.processingForgotPassword && <CircularProgress size={24} className="progress" />}
           Forgot Password
         </Button>
       ),
