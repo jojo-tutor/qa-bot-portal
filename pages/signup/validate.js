@@ -33,7 +33,7 @@ function ValidateSignup() {
         <>
           <CircularProgress />
           <Typography component="p" variant="body1">
-            {page.data ? 'Redirecting...' : 'Validating ...'}
+            {page.data ? 'Redirecting page ...' : 'Validating token ...'}
           </Typography>
         </>
       )}
@@ -41,7 +41,7 @@ function ValidateSignup() {
       <Grid container justify="center">
         <Grid item>
           <Link href="/login" variant="body2">
-            Return to Login
+            Return to Login Page
           </Link>
         </Grid>
       </Grid>

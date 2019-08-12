@@ -14,7 +14,7 @@ import GlobalStyles from 'layouts/Global';
 import Notification from 'containers/Notification';
 import { getSession } from 'redux/session/actions';
 
-const notAuthenticatedRoutes = ['/login', '/signup', '/forgot-password'];
+const notAuthenticatedRoutes = ['/login', '/signup', '/forgot-password', '/reset-password'];
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

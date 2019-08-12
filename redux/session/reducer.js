@@ -9,8 +9,12 @@ export const initialState = {
   },
   signup: null,
   signupValidated: null,
+  token: null,
   loggingIn: false,
   signingUp: false,
+  forgettingPassword: false,
+  resettingPassword: false,
+  validatingToken: false,
 };
 
 function reducer(state = initialState, action) {
@@ -53,7 +57,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         ...{
-          processingForgotPassword: true,
+          forgettingPassword: true,
         },
       };
 
@@ -62,7 +66,24 @@ function reducer(state = initialState, action) {
         ...state,
         ...{
           forgotPassword: action.payload,
-          processingForgotPassword: false,
+          forgettingPassword: false,
+        },
+      };
+
+    case actionTypes.RESET_PASSWORD:
+      return {
+        ...state,
+        ...{
+          resettingPassword: true,
+        },
+      };
+
+    case actionTypes.RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        ...{
+          resetPassword: action.payload,
+          resettingPassword: false,
         },
       };
 
@@ -100,6 +121,23 @@ function reducer(state = initialState, action) {
         },
       };
 
+    case actionTypes.VALIDATE_TOKEN:
+      return {
+        ...state,
+        ...{
+          validatingToken: true,
+        },
+      };
+
+    case actionTypes.VALIDATE_TOKEN_SUCCESS:
+      return {
+        ...state,
+        ...{
+          token: action.payload,
+          validatingToken: false,
+        },
+      };
+
     case errorTypes.THROW_ERROR:
       return {
         ...state,
@@ -108,7 +146,9 @@ function reducer(state = initialState, action) {
           loggingIn: false,
           signingUp: false,
           validatingSignup: false,
-          processingForgotPassword: false,
+          forgettingPassword: false,
+          resettingPassword: false,
+          validatingToken: false,
         },
       };
 

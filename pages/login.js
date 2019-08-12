@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { loginUser } from 'redux/session/actions';
 import OuterForm from 'components/OuterForm';
 import * as Yup from 'yup';
+import PasswordField from 'components/PasswordField';
 import FormikForm from 'components/FormikForm';
 
 const key = 'session';
@@ -59,7 +60,7 @@ function Login() {
       required: true,
       defaultValue: '',
       autoComplete: 'new-password',
-      component: TextField,
+      component: PasswordField,
     },
     {
       id: 'rememberMe',

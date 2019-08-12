@@ -53,9 +53,9 @@ function ForgotPassword() {
           color="primary"
           size="large"
           className="submit"
-          disabled={page.processingForgotPassword}
+          disabled={page.forgettingPassword}
         >
-          {page.processingForgotPassword && <CircularProgress size={24} className="progress" />}
+          {page.forgettingPassword && <CircularProgress size={24} className="progress" />}
           Forgot Password
         </Button>
       ),

@@ -5,8 +5,12 @@ export const actionTypes = {
   SIGNUP_USER_SUCCESS: 'SIGNUP_USER_SUCCESS',
   VALIDATE_SIGNUP: 'VALIDATE_SIGNUP',
   VALIDATE_SIGNUP_SUCCESS: 'VALIDATE_SIGNUP_SUCCESS',
+  VALIDATE_TOKEN: 'VALIDATE_TOKEN',
+  VALIDATE_TOKEN_SUCCESS: 'VALIDATE_TOKEN_SUCCESS',
   FORGOT_PASSWORD: 'FORGOT_PASSWORD',
   FORGOT_PASSWORD_SUCCESS: 'FORGOT_PASSWORD_SUCCESS',
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  RESET_PASSWORD_SUCCESS: 'RESET_PASSWORD_SUCCESS',
   GET_SESSION: 'GET_SESSION',
   GET_SESSION_SUCCESS: 'GET_SESSION_SUCCESS',
 };
@@ -53,6 +57,20 @@ export function validateSignupSuccess(payload) {
   };
 }
 
+export function validateToken(payload) {
+  return {
+    type: actionTypes.VALIDATE_TOKEN,
+    payload,
+  };
+}
+
+export function validateTokenSuccess(payload) {
+  return {
+    type: actionTypes.VALIDATE_TOKEN_SUCCESS,
+    payload,
+  };
+}
+
 export function forgotPassword(payload) {
   return {
     type: actionTypes.FORGOT_PASSWORD,
@@ -63,6 +81,20 @@ export function forgotPassword(payload) {
 export function forgotPasswordSuccess(payload) {
   return {
     type: actionTypes.FORGOT_PASSWORD_SUCCESS,
+    payload,
+  };
+}
+
+export function resetPassword(payload) {
+  return {
+    type: actionTypes.RESET_PASSWORD,
+    payload,
+  };
+}
+
+export function resetPasswordSuccess(payload) {
+  return {
+    type: actionTypes.RESET_PASSWORD_SUCCESS,
     payload,
   };
 }
