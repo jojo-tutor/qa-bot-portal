@@ -15,7 +15,7 @@
     "hoist-non-react-statics": "^3.3.0",
     "http-proxy-middleware": "^0.19.1",
     "invariant": "^2.2.4",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "next": "latest",
     "next-redux-saga": "^4.0.2",
     "next-redux-wrapper": "^3.0.0-alpha.3",
